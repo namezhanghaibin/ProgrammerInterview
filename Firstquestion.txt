@@ -1,0 +1,48 @@
+#include <iostream>
+#include <assert.h>
+using namespace std;
+int *getmink(int a[],int left,int right,int k)
+{
+	assert(a!=nullptr||k>left||k<right);
+	if (k==right+1)
+	{
+		return a;
+	}	
+	int midIndex = (left + right)/2;  
+	if(a[left] < a[midIndex])  
+	   swap(a[left], a[midIndex]);  
+	if(a[right] < a[midIndex])  
+	   swap(a[right], a[midIndex]);  
+	if(a[right] < a[left])  
+	   swap(a[right], a[left]);  
+	swap(a[left], a[right]); 
+	int key=a[right];
+	int i = left;
+	int h=i-1;
+	int j = right-1;  
+    for (;i<=j;i++)
+    {
+		if (a[i]<key)
+		{
+			h++;
+			swap(a[h],a[i]);
+		}
+	}
+	swap(a[h+1],a[right]);
+	if ((h+1) == k+left)  
+		return a;  
+	else if ((h+1)>k+left)  
+		return getmink(a, left, h+1, k);  
+	else return getmink(a, h+1, right, k-h-1);  
+}
+int main()
+{
+	int a[] = {7, 8, 9, 54, 6, 4, 11, 1, 2,33,0,23,12,5};
+	getmink(a,0,sizeof(a)/sizeof(int)-1,5);
+	cout<<a[0]<<endl;
+	cout<<a[1]<<endl;
+	cout<<a[2]<<endl;
+	cout<<a[3]<<endl;
+	cout<<a[4]<<endl;
+	return 0;
+}
