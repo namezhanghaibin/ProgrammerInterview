@@ -1,4 +1,4 @@
-//求取最小K个数
+//左旋转字符串
 #include <iostream>
 #include <assert.h>
 using namespace std;
